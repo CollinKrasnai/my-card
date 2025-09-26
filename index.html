@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="Description" content="Boilerplate for polaris chip">
+  <base href="/">
+  <title>polaris-chip / my-card</title>
+  
+  <script type="module" src="./src/polaris-chip.js"></script>
+  <script type="module" src="./src/my-card.js"></script>
+  
+  <style>
+    :root, html, body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #ededed;
+    }
+    my-card {
+      margin: 16px;
+      display: block; 
+    }
+    .card-wrapper {
+      padding: 16px;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px;
+      justify-content: center;
+    }
+    .controls button {
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: #00529b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .controls button:hover {
+      background-color: #0073e6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    <button id="add-card-btn">Add Card</button>
+    <button id="change-title-btn">Change Title & Description</button>
+    <button id="change-image-btn">Change Image</button>
+    <button id="toggle-bg-btn">Toggle Background</button>
+    <button id="remove-card-btn">Remove Last Card</button>
+  </div>
+  
+  <div class="card-wrapper">
+    <h1>my-card</h1>
+    
+    <my-card 
+      title="Nittany Lion Shrine" 
+      image="https://images.fineartamerica.com/images-medium-large-5/the-nittany-lion-shrine-mark-miller.jpg" 
+      description="The Nittany Lion Shrine is a sculpture at Penn State University, a popular spot for photos and a symbol of pride." 
+      link="https://hax.psu.edu">
+    </my-card>
+    
+  </div>
+
+  <script>
+    document.querySelector('#add-card-btn').addEventListener('click', () => {
+      const cardContainer = document.querySelector('.card-wrapper');
+      const newCard = document.createElement('my-card');
+      
+      newCard.title = "Nittany Lion Shrine";
+      newCard.image = "https://images.fineartamerica.com/images-medium-large-5/the-nittany-lion-shrine-mark-miller.jpg";
+      newCard.description = "The Nittany Lion Shrine is a sculpture at Penn State University, a popular spot for photos and a symbol of pride.";
+      newCard.link = "https://hax.psu.edu";
+      
+      cardContainer.appendChild(newCard);
+    });
+
+    document.querySelector('#change-title-btn').addEventListener('click', () => {
+      const firstCard = document.querySelector('my-card');
+      if (firstCard) {
+        firstCard.title = "Old Main";
+        firstCard.description = "Old Main is the administrative center of Penn State University and a historic landmark on campus.";
+      }
+    });
+
+    document.querySelector('#change-image-btn').addEventListener('click', () => {
+      const firstCard = document.querySelector('my-card');
+      if (firstCard) {
+        firstCard.image = 'https://centrehistory.org/wp-content/uploads/2021/07/Old-Main-1024x682.jpg';
+      }
+    });
+
+    document.querySelector('#toggle-bg-btn').addEventListener('click', () => {
+      document.querySelectorAll('my-card').forEach(card => {
+        card.toggleAttribute('highlight');
+      });
+    });
+
+    document.querySelector('#remove-card-btn').addEventListener('click', () => {
+      const allCards = document.querySelectorAll('my-card');
+      if (allCards.length > 1) {
+        allCards[allCards.length - 1].remove();
+      }
+    });
+  </script>
+</body>
+</html>
